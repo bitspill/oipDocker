@@ -1,0 +1,79 @@
+version: '3'
+
+services:
+  goflo:
+    build: go-flo
+    hostname: goflo
+    ports:
+      - 7316:7316
+    volumes:
+      - goFloHome:/root/.flod/
+    networks:
+      - flonet
+
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.7.1
+    container_name: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - esnet
+
+
+  elasticsearch2:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.7.1
+    container_name: elasticsearch2
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - "discovery.zen.ping.unicast.hosts=elasticsearch"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata2:/usr/share/elasticsearch/data
+    networks:
+      - esnet
+
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.7.1
+    ports:
+      - 5601:5601
+    networks:
+      - esnet
+
+
+  oip:
+    build: oip
+    ports:
+      - 1606:1606
+    networks:
+      - esnet
+      - flonet
+    volumes:
+      - goFloHome:/flo/
+
+
+networks:
+  esnet:
+  flonet:
+
+
+volumes:
+  goFloHome:
+  esdata1:
+  esdata2:
