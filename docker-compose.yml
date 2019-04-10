@@ -49,6 +49,8 @@ services:
 
   kibana:
     image: docker.elastic.co/kibana/kibana:6.7.1
+    depends_on:
+      - elasticsearch
     ports:
       - 5601:5601
     networks:
@@ -57,6 +59,9 @@ services:
 
   oip:
     build: oip
+    depends_on:
+      - goflo
+      - elasticsearch
     ports:
       - 1606:1606
     networks:
