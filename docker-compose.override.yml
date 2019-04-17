@@ -1,0 +1,6 @@
+# disable services
+
+ipfs:
+  image: hello-world
+  command: hello
+  restart: no
