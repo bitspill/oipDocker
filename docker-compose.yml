@@ -87,6 +87,13 @@ services:
     ports:
       - 7000:7000
 
+  insightflo:
+    build: insight-flo
+    environment:
+      - NODE_ENV=production
+    ports:
+      - 3001:3001
+
 networks:
   esnet:
   flonet:
