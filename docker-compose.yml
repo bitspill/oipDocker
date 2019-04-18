@@ -80,7 +80,12 @@ services:
       - ./ipfsStaging:/export
       - ipfsData:/data/ipfs
 
-
+  webwallet:
+    build: webwallet
+    environment:
+      - NODE_ENV=production
+    ports:
+      - 7000:7000
 
 networks:
   esnet:
