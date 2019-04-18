@@ -1,12 +1,15 @@
+version: '3'
+
 # disable services
 
-ipfs:
-  image: hello-world
-  command: hello
-  restart: no
+services:
+  ipfs:
+    image: hello-world
+    command: hello
+    restart: "no"
 
 
-elasticsearch2:
-  image: hello-world
-  command: hello
-  restart: no
+  elasticsearch2:
+    image: hello-world
+    command: hello
+    restart: "no"
