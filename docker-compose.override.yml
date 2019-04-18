@@ -4,3 +4,9 @@ ipfs:
   image: hello-world
   command: hello
   restart: no
+
+
+elasticsearch2:
+  image: hello-world
+  command: hello
+  restart: no
