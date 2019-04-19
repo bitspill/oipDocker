@@ -1,10 +1,13 @@
 FROM alpine as build
 
-RUN apk add --no-cache alpine-sdk boost-dev openssl-dev libevent-dev
+RUN apk add --no-cache alpine-sdk boost-dev openssl-dev libevent-dev autoconf automake libtool
 
 RUN git clone https://github.com/RavenProject/Ravencoin /rvn/Ravencoin
 WORKDIR /rvn/Ravencoin
-RUN ./autogen.sh && ./configure --disable-wallet --without-gui --without-miniupnpc && make check
+
+RUN ./autogen.sh
+RUN ./configure --enable-static --disable-shared --disable-wallet --without-gui --without-miniupnpc
+RUN make check -j 6
 
 FROM alpine:latest
 

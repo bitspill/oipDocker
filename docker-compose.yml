@@ -88,12 +88,12 @@ services:
     ports:
       - 7000:7000
 
-  insightflo:
-    build: insight-flo
-    environment:
-      - NODE_ENV=production
-    ports:
-      - 3001:3001
+#  insightflo:
+#    build: insight-flo
+#    environment:
+#      - NODE_ENV=production
+#    ports:
+#      - 3001:3001
 
   btcd:
     build: btcd
@@ -103,13 +103,13 @@ services:
     volumes:
       - btcdHome:/root/.btcd/
 
-  raven:
-    build: raven
-    ports:
-      - 8787:8787
-      - 127.0.0.1:8786:8786
-    volumes:
-      - ravenHome:/rvn/datadir/
+#  raven:
+#    build: raven
+#    ports:
+#      - 8787:8787
+#      - 127.0.0.1:8786:8786
+#    volumes:
+#      - ravenHome:/rvn/datadir/
 
 
 networks:
@@ -120,7 +120,7 @@ networks:
 volumes:
   goFloHome:
   btcdHome:
-  ravenHome:
+#  ravenHome:
   esdata1:
   esdata2:
   ipfsData:
