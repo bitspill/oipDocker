@@ -103,6 +103,14 @@ services:
     volumes:
       - btcdHome:/root/.btcd/
 
+  raven:
+    build: raven
+    ports:
+      - 8787:8787
+      - 127.0.0.1:8786:8786
+    volumes:
+      - ravenHome:/rvn/datadir/
+
 
 networks:
   esnet:
@@ -112,6 +120,7 @@ networks:
 volumes:
   goFloHome:
   btcdHome:
+  ravenHome:
   esdata1:
   esdata2:
   ipfsData:
