@@ -18,3 +18,8 @@ services:
     image: hello-world
     command: hello
     restart: "no"
+
+  insightflo:
+    image: hello-world
+    command: hello
+    restart: "no"
