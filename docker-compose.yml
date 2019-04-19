@@ -6,6 +6,7 @@ services:
     hostname: goflo
     ports:
       - 7316:7316
+      - 127.0.0.1:7317:7317
     volumes:
       - goFloHome:/root/.flod/
     networks:
@@ -50,7 +51,7 @@ services:
     depends_on:
       - elasticsearch
     ports:
-      - 5601:5601
+      - 127.0.0.1:5601:5601
     networks:
       - esnet
 
