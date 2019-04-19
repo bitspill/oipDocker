@@ -13,3 +13,8 @@ services:
     image: hello-world
     command: hello
     restart: "no"
+
+  btcd:
+    image: hello-world
+    command: hello
+    restart: "no"
