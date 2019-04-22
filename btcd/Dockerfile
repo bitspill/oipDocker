@@ -2,16 +2,14 @@ FROM golang:1-alpine as build
 
 RUN apk add --no-cache git
 
-RUN go get -u github.com/Masterminds/glide
 RUN git clone https://github.com/btcsuite/btcd/ /go/src/github.com/btcsuite/btcd/
 WORKDIR /go/src/github.com/btcsuite/btcd/
-RUN glide install
-RUN go install . ./cmd/...
 
+RUN GO111MODULE=on go install -v . ./cmd/...
 
 FROM alpine:latest
 
-COPY --from=build /go/bin/btcd /btcd/bin/btcd
+COPY --from=build /go/bin/ /btcd/bin/
 COPY ./btcd.conf /btcd/btcd.conf
 
 
