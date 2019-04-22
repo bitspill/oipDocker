@@ -54,6 +54,7 @@ services:
       - 127.0.0.1:5601:5601
     networks:
       - esnet
+      - caddynet
 
 
   oip:
@@ -62,10 +63,11 @@ services:
       - goflo
       - elasticsearch
     ports:
-      - 1606:1606
+      - 127.0.0.1:1606:1606
     networks:
       - esnet
       - flonet
+      - caddynet
     volumes:
       - goFloHome:/flo/
 
@@ -80,20 +82,24 @@ services:
     volumes:
       - ./ipfsStaging:/export
       - ipfsData:/data/ipfs
+    networks:
+      - caddynet
 
   webwallet:
     build: webwallet
+    networks:
+      - caddynet
     environment:
       - NODE_ENV=production
     ports:
       - 7000:7000
 
-#  insightflo:
-#    build: insight-flo
-#    environment:
-#      - NODE_ENV=production
-#    ports:
-#      - 3001:3001
+  # insightflo:
+  #   build: insight-flo
+  #   environment:
+  #     - NODE_ENV=production
+  #   ports:
+  #     - 3001:3001
 
   btcd:
     build: btcd
@@ -103,24 +109,36 @@ services:
     volumes:
       - btcdHome:/root/.btcd/
 
-#  raven:
-#    build: raven
-#    ports:
-#      - 8787:8787
-#      - 127.0.0.1:8786:8786
-#    volumes:
-#      - ravenHome:/rvn/datadir/
+  # raven:
+  #   build: raven
+  #   ports:
+  #     - 8787:8787
+  #     - 127.0.0.1:8786:8786
+  #   volumes:
+  #     - ravenHome:/rvn/datadir/
 
+  caddy:
+    build:
+      context: caddy/
+      dockerfile: Dockerfile
+      args:
+        CADDY_VERSION: ${CADDY_VERSION:-0.11.5}
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - caddynet
 
 networks:
   esnet:
   flonet:
+  caddynet:
 
 
 volumes:
   goFloHome:
   btcdHome:
-#  ravenHome:
+  # ravenHome:
   esdata1:
   esdata2:
   ipfsData:

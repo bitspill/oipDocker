@@ -1,0 +1,24 @@
+
+(std) {
+  log stdout
+  errors stderr
+}
+
+
+:80/kibana {
+  import std
+  gzip
+  proxy / kibana:5601 {
+	transparent
+  }
+}
+
+
+:80/oip {
+  import std
+  gzip
+  proxy / oip:1606/oip {
+	transparent
+  }
+  cors
+}
