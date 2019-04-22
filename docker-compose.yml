@@ -11,7 +11,21 @@ services:
       - goFloHome:/root/.flod/
     networks:
       - flonet
+    environment:
+      - TESTNET=0
 
+  goflot:
+    build: go-flo
+    hostname: goflot
+    ports:
+      - 17316:7316
+      - 127.0.0.1:17317:7317
+    volumes:
+      - goFlotHome:/root/.flod/
+    networks:
+      - flotnet
+    environment:
+      - TESTNET=1
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.7.1
@@ -135,11 +149,13 @@ services:
 networks:
   esnet:
   flonet:
+  flotnet:
   caddynet:
 
 
 volumes:
   goFloHome:
+  goFlotHome:
   btcdHome:
   # ravenHome:
   esdata1:
