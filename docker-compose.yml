@@ -55,6 +55,9 @@ services:
     networks:
       - esnet
       - caddynet
+    environment:
+      SERVER_HOST: 0.0.0.0
+      SERVER_BASEPATH: "/kibana"
 
 
   oip:
